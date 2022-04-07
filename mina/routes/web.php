@@ -18,13 +18,12 @@ Route::get('/', function () {
 });
 
 Auth::routes();
-
-Route::get('/admin', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Auth::routes();
-Route::get('/admin', 'App\Http\Controllers\HomeController@index')->name('home');
+Route::get('/admin', [HomeController::class, 'index'])->name('home');
+//Auth::routes();
+//Route::get('/admin', 'App\Http\Controllers\HomeController@index')->name('home');
 
 Route::group(['middleware' => 'auth'], function () {
-	Route::resource('user', 'App\Http\Controllers\UserController', ['except' => ['show']]);
+	Route::resource('user', UserController::class, ['except' => ['show']]);
 	Route::get('profile', ['as' => 'profile.edit', 'uses' => 'App\Http\Controllers\ProfileController@edit']);
 	Route::put('profile', ['as' => 'profile.update', 'uses' => 'App\Http\Controllers\ProfileController@update']);
 	Route::get('upgrade', function () {return view('pages.upgrade');})->name('upgrade');
@@ -32,5 +31,10 @@ Route::group(['middleware' => 'auth'], function () {
 	 Route::get('icons', function () {return view('pages.icons');})->name('icons');
 	 Route::get('table-list', function () {return view('pages.tables');})->name('table');
 	Route::put('profile/password', ['as' => 'profile.password', 'uses' => 'App\Http\Controllers\ProfileController@password']);
+
+    Route::resources([
+        'sub' => SubController::class,
+        'post' => PostController::class,
+    ]);
 });
 
