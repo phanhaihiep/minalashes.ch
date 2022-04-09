@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\PostController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -33,7 +34,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::resources([
         'sub' => 'SubController',
-        'post' => 'PostController',
     ]);
+    Route::resource('/posts', PostController::class);
 });
 

@@ -16,8 +16,8 @@ class PostController extends Controller
      */
     public function index()
     {
-        $data = Post::orderBy('id', 'desc')->paginate();
-        return view('post.index', compact($data));
+        // $data = Post::orderBy('id', 'desc')->paginate();
+        return view('posts.index');
     }
 
     /**
@@ -27,7 +27,7 @@ class PostController extends Controller
      */
     public function create()
     {
-        return view('post.create');
+        return view('posts.create');
     }
 
     /**
