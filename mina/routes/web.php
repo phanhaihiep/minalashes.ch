@@ -13,12 +13,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('cms.dashboard');
-});
+Route::get('/', 'IndexController@index')->name('index');
+Route::post('/send-mail', 'IndexController@sendMail')->name('send.mail');
 
 Auth::routes();
-Route::get('/admin', [HomeController::class, 'index'])->name('home');
+Route::get('/admin','HomeController@index')->name('home');
 //Auth::routes();
 //Route::get('/admin', 'App\Http\Controllers\HomeController@index')->name('home');
 
@@ -33,8 +32,8 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::put('profile/password', ['as' => 'profile.password', 'uses' => 'App\Http\Controllers\ProfileController@password']);
 
     Route::resources([
-        'sub' => SubController::class,
-        'post' => PostController::class,
+        'sub' => 'SubController',
+        'post' => 'PostController',
     ]);
 });
 

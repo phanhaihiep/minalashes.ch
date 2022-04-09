@@ -1,10 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
+use App\Models\Subscribe;
 use Illuminate\Http\Request;
 
-class PostController extends Controller
+class SubController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -13,7 +15,8 @@ class PostController extends Controller
      */
     public function index()
     {
-        //
+        $data = Subscribe::orderBy('id', 'desc')->paginate();
+        return view('sub.index', compact($data));
     }
 
     /**
@@ -23,7 +26,7 @@ class PostController extends Controller
      */
     public function create()
     {
-        //
+        return view('sub.create');
     }
 
     /**
@@ -34,7 +37,13 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $post = new Subscribe();
+        $post->fill($request->all());
+        if ($post->save()) {
+            return back()->with('success','Subscribe created successfully.');
+        } else {
+            return back()->with('success','Subscribe created fail.');
+        }
     }
 
     /**
@@ -45,7 +54,8 @@ class PostController extends Controller
      */
     public function show($id)
     {
-        //
+        $post = Subscribe::FindOrFail($id);
+        return view('sub.update', compact($post));
     }
 
     /**
@@ -79,6 +89,11 @@ class PostController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $post = Subscribe::FindOrFail($id);
+        if ( $post->delete()) {
+            return back()->with('success','Subscribe updated successfully.');
+        } else {
+            return back()->with('success','Subscribe updated fail.');
+        }
     }
 }

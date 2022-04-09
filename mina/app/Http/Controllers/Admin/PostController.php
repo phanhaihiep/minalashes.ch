@@ -1,10 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
+use App\Models\Post;
 use Illuminate\Http\Request;
+use function view;
 
-class SubController extends Controller
+class PostController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -13,7 +16,8 @@ class SubController extends Controller
      */
     public function index()
     {
-        //
+        $data = Post::orderBy('id', 'desc')->paginate();
+        return view('post.index', compact($data));
     }
 
     /**
@@ -23,7 +27,7 @@ class SubController extends Controller
      */
     public function create()
     {
-        //
+        return view('post.create');
     }
 
     /**
@@ -34,7 +38,13 @@ class SubController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $post = new Post();
+        $post->fill($request->all());
+        if ($post->save()) {
+            return back()->with('success','Post created successfully.');
+        } else {
+            return back()->with('success','Post created fail.');
+        }
     }
 
     /**
@@ -45,7 +55,8 @@ class SubController extends Controller
      */
     public function show($id)
     {
-        //
+        $post = Post::FindOrFail($id);
+        return view('post.update', compact($post));
     }
 
     /**
@@ -68,7 +79,13 @@ class SubController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $post = Post::FindOrFail($id);
+        $post->fill($request->all());
+        if ($post->save()) {
+            return back()->with('success','Post updated successfully.');
+        } else {
+            return back()->with('success','Post updated fail.');
+        }
     }
 
     /**
@@ -79,6 +96,11 @@ class SubController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $post = Post::FindOrFail($id);
+        if ( $post->delete()) {
+            return back()->with('success','Post updated successfully.');
+        } else {
+            return back()->with('success','Post updated fail.');
+        }
     }
 }
