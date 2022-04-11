@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use function view;
 
 class PostController extends Controller
@@ -16,8 +17,8 @@ class PostController extends Controller
      */
     public function index()
     {
-        $data = Post::orderBy('id', 'desc')->paginate();
-        return view('post.index', compact('data'));
+        $posts = Post::with('user')->orderBy('id', 'desc')->paginate(20);
+        return view('post.index', compact('posts'));
     }
 
     /**
@@ -27,7 +28,8 @@ class PostController extends Controller
      */
     public function create()
     {
-        return view('post.create');
+        $post = null;
+        return view('post.create', compact('post'));
     }
 
     /**
@@ -38,10 +40,15 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'title' => 'required|unique:post|max:255',
+            'content' => 'required',
+        ]);
         $post = new Post();
         $post->fill($request->all());
+        $post->user_id = Auth::user()->id;
         if ($post->save()) {
-            return back()->with('success','Post created successfully.');
+            return redirect('post.index')->with('success','Post created successfully.');
         } else {
             return back()->with('success','Post created fail.');
         }
@@ -56,7 +63,7 @@ class PostController extends Controller
     public function show($id)
     {
         $post = Post::FindOrFail($id);
-        return view('post.update', compact($post));
+        return view('post.create', compact('post'));
     }
 
     /**
@@ -67,7 +74,8 @@ class PostController extends Controller
      */
     public function edit($id)
     {
-        //
+        $post = Post::FindOrFail($id);
+        return view('post.create', compact('post'));
     }
 
     /**
@@ -79,6 +87,10 @@ class PostController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $request->validate([
+            'title' => 'required|max:255',
+            'content' => 'required',
+        ]);
         $post = Post::FindOrFail($id);
         $post->fill($request->all());
         if ($post->save()) {
@@ -98,9 +110,9 @@ class PostController extends Controller
     {
         $post = Post::FindOrFail($id);
         if ( $post->delete()) {
-            return back()->with('success','Post updated successfully.');
+            return back()->with('success','Post delete successfully.');
         } else {
-            return back()->with('success','Post updated fail.');
+            return back()->with('success','Post delete fail.');
         }
     }
 }

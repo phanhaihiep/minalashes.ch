@@ -28,7 +28,7 @@
                                     Username <strong>admin@argon.com</strong> Password: <strong>secret</strong>
                             </small>
                         </div>
-                        <form role="form" method="POST" action="{{ route('login') }}">
+                        <form role="form" method="POST" action="{{ route('admin.login') }}">
                             @csrf
 
                             <div class="form-group{{ $errors->has('email') ? ' has-danger' : '' }} mb-3">
@@ -78,7 +78,7 @@
                         @endif
                     </div>
                     <div class="col-6 text-right">
-                        <a href="{{ route('register') }}" class="text-light">
+                        <a href="{{ route('admin.register') }}" class="text-light">
                             <small>{{ __('Create new account') }}</small>
                         </a>
                     </div>

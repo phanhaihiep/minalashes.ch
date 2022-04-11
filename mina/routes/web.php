@@ -18,24 +18,31 @@ Route::get('/blog', 'IndexController@blog')->name('blog');
 Route::get('/blog/{id}', 'IndexController@blogDetail')->name('blogDetail');
 Route::post('/send-mail', 'IndexController@sendMail')->name('send.mail');
 
-Auth::routes();
-Route::get('/admin','HomeController@index')->name('home');
-//Auth::routes();
-//Route::get('/admin', 'App\Http\Controllers\HomeController@index')->name('home');
-
-Route::group(['middleware' => 'auth'], function () {
-	Route::resource('user', UserController::class, ['except' => ['show']]);
-	Route::get('profile', ['as' => 'profile.edit', 'uses' => 'App\Http\Controllers\ProfileController@edit']);
-	Route::put('profile', ['as' => 'profile.update', 'uses' => 'App\Http\Controllers\ProfileController@update']);
-	Route::get('upgrade', function () {return view('pages.upgrade');})->name('upgrade');
-	 Route::get('map', function () {return view('pages.maps');})->name('map');
-	 Route::get('icons', function () {return view('pages.icons');})->name('icons');
-	 Route::get('table-list', function () {return view('pages.tables');})->name('table');
-	Route::put('profile/password', ['as' => 'profile.password', 'uses' => 'App\Http\Controllers\ProfileController@password']);
+Route::get('/admin', 'Admin\HomeController@index')->name('admin.home');
+Route::post('/admin/login', 'Admin\HomeController@login')->name('admin.login');
+Route::get('/admin/register', 'Admin\HomeController@register')->name('admin.register');
+Route::prefix('/admin')->name('admin.')->middleware('auth:admin')->namespace('Admin')->group(function () {
+    Route::get('/logout', 'HomeController@logout')->name('logout');
+    Route::get('profile', 'ProfileController@edit')->name('profile.edit');
+    Route::put('profile', 'ProfileController@update')->name('profile.update');
+    Route::put('profile/password', 'ProfileController@password')->name('profile.password');
+    Route::get('upgrade', function () {
+        return view('pages.upgrade');
+    })->name('upgrade');
+    Route::get('map', function () {
+        return view('pages.maps');
+    })->name('map');
+    Route::get('icons', function () {
+        return view('pages.icons');
+    })->name('icons');
+    Route::get('table-list', function () {
+        return view('pages.tables');
+    })->name('table');
 
     Route::resources([
-        'sub' => 'SubController',
-        'post' => 'PostController',
+        'user' => UserController::class,
+        'sub' => SubController::class,
+        'post' => PostController::class,
     ]);
 });
 

@@ -15,8 +15,8 @@ class SubController extends Controller
      */
     public function index()
     {
-        $data = Subscribe::orderBy('id', 'desc')->paginate();
-        return view('sub.index', compact('data'));
+        $subs = Subscribe::orderBy('id', 'desc')->paginate(20);
+        return view('subscribe.index', compact('subs'));
     }
 
     /**
@@ -26,7 +26,7 @@ class SubController extends Controller
      */
     public function create()
     {
-        return view('sub.create');
+//        return view('subcribe.create');
     }
 
     /**
@@ -37,13 +37,13 @@ class SubController extends Controller
      */
     public function store(Request $request)
     {
-        $post = new Subscribe();
-        $post->fill($request->all());
-        if ($post->save()) {
-            return back()->with('success','Subscribe created successfully.');
-        } else {
-            return back()->with('success','Subscribe created fail.');
-        }
+//        $post = new Subscribe();
+//        $post->fill($request->all());
+//        if ($post->save()) {
+//            return back()->with('success','Subscribe created successfully.');
+//        } else {
+//            return back()->with('success','Subscribe created fail.');
+//        }
     }
 
     /**
@@ -54,8 +54,7 @@ class SubController extends Controller
      */
     public function show($id)
     {
-        $post = Subscribe::FindOrFail($id);
-        return view('sub.update', compact($post));
+//      fsubscribe
     }
 
     /**
@@ -89,11 +88,11 @@ class SubController extends Controller
      */
     public function destroy($id)
     {
-        $post = Subscribe::FindOrFail($id);
-        if ( $post->delete()) {
-            return back()->with('success','Subscribe updated successfully.');
+        $sub = Subscribe::FindOrFail($id);
+        if ( $sub->delete()) {
+            return back()->with('success','Subscribe delete successfully.');
         } else {
-            return back()->with('success','Subscribe updated fail.');
+            return back()->with('success','Subscribe delete fail.');
         }
     }
 }

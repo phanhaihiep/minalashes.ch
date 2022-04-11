@@ -1,10 +1,15 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
-use App\Http\Requests\ProfileRequest;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\PasswordRequest;
+use App\Http\Requests\ProfileRequest;
 use Illuminate\Support\Facades\Hash;
+use function __;
+use function auth;
+use function back;
+use function view;
 
 class ProfileController extends Controller
 {

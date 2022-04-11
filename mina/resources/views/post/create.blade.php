@@ -45,6 +45,7 @@
           content="https://s3.amazonaws.com/creativetim_bucket/products/96/original/opt_ad_thumbnail.jpg"/>
     <meta property="og:description" content="Start your development with a Dashboard for Bootstrap 4."/>
     <meta property="og:site_name" content="Creative Tim"/>
+    <script src="https://cdn.ckeditor.com/4.18.0/standard/ckeditor.js"></script>
     <!-- Google Tag Manager -->
     <script>
         (function (w, d, s, l, i) {
@@ -74,6 +75,9 @@
     @include('layouts.navbars.navbar')
     <div class="header bg-gradient-primary pb-8 pt-5 pt-md-8">
         <div class="container-fluid">
+            {{-- <div class="alert alert-danger" role="alert">
+                <strong>This is a PRO feature!</strong>
+              </div> --}}
             <div class="header-body">
                 <!-- Card stats -->
                 <div class="row">
@@ -103,7 +107,7 @@
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col">
-                                        <h5 class="card-title text-uppercase text-muted mb-0">New users</h5>
+                                        <h5 class="card-title text-uppercase text-muted mb-0">New Post</h5>
                                         <span class="h2 font-weight-bold mb-0">2,356</span>
                                     </div>
                                     <div class="col-auto">
@@ -172,10 +176,7 @@
                     <div class="card-header border-0">
                         <div class="row align-items-center">
                             <div class="col-8">
-                                <h3 class="mb-0">Users</h3>
-                            </div>
-                            <div class="col-4 text-right">
-                                <a href="{{ route('admin.user.create') }}" class="btn btn-sm btn-primary">Add user</a>
+                                <h3 class="mb-0">Posts</h3>
                             </div>
                         </div>
                     </div>
@@ -183,47 +184,44 @@
                     <div class="col-12">
                     </div>
 
-                    <div class="table-responsive">
-                        <table class="table align-items-center table-flush">
-                            <thead class="thead-light">
-                            <tr>
-                                <th scope="col">Stt</th>
-                                <th scope="col">Tên</th>
-                                <th scope="col">Ảnh</th>
-                                <th scope="col">Email</th>
-                                <th scope="col">Creation Date</th>
-                                <th scope="col"></th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            @foreach($users as $key => $user)
-                            <tr>
-                                <td>{{ $key + 1 }}</td>
-                                <td>{{ $user->name }}</td>
-                                <td><img width="50" src="{{ $user->avatar }}" alt=""></td>
-                                <td>{{ $user->email }}</td>
-                                <td>{{ $user->created_at }}</td>
-                                <td class="text-right">
-                                    <div class="dropdown">
-                                        <a class="btn btn-sm btn-icon-only text-light" href="#" role="button"
-                                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <i class="fas fa-ellipsis-v"></i>
-                                        </a>
-                                        <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                                            <a class="dropdown-item" href="{{ route('admin.user.edit', ['user' => $user->id]) }}">Sửa</a>
-                                            <a class="dropdown-item" href="{{ route('admin.user.destroy', ['user' => $user->id]) }}">Xóa</a>
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
-                            @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="card-footer py-4">
-                        <nav class="d-flex justify-content-end" aria-label="...">
-                            {{ $users->links() }}
-                        </nav>
+                    <div class="row">
+                        <div class="col-12">
+                            @if ($post)
+                                <form method="POST" action="{{ route('admin.post.update', ['post' => $post->id]) }}" class="card-header">
+                                    @method('PATCH')
+                                    @else
+                                        <form method="POST" action="{{ route('admin.post.store') }}" class="card-header">
+                                            @endif
+                                            @if ($errors->any())
+                                                <div class="alert alert-danger">
+                                                    <ul>
+                                                        @foreach ($errors->all() as $error)
+                                                            <li>{{ $error }}</li>
+                                                        @endforeach
+                                                    </ul>
+                                                </div>
+                                            @endif
+                                            @csrf
+                                            <div class="form-group">
+                                                <label for="exampleFormControlInput1">Tiêu đề</label>
+                                                <input type="text" class="form-control" id="exampleFormControlInput1" value="{{ $post ? $post->title : '' }}"
+                                                       name="title" placeholder="Nhập tiêu đề" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="exampleFormControlTextarea1">Nội dung</label>
+                                                <textarea class="form-control" id="exampleFormControlTextarea1" rows="6"
+                                                          name="content" required>
+                                                    {{ $post ? $post->content : '' }}
+                                                </textarea>
+                                                <script>
+                                                    CKEDITOR.replace('exampleFormControlTextarea1');
+                                                </script>
+                                            </div>
+                                            <div class="form-group text-center">
+                                                <button type="submit" class="btn btn-success">{{ $post ? 'Cập nhật' : 'Thêm mới' }}</button>
+                                            </div>
+                                        </form>
+                        </div>
                     </div>
                 </div>
             </div>

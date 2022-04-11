@@ -65,7 +65,7 @@
 </head>
 <body>
 <header class="header">
-    <a href="#">
+    <a href="{{ route('index') }}">
         <img
             class="logo"
             alt="Mina Lashes logo"
@@ -123,7 +123,7 @@
 <footer class="footer">
     <div class="container grid grid--footer">
         <div class="logo-col">
-            <a href="#" class="footer-logo">
+            <a href="{{ route('index') }}" class="footer-logo">
                 <img class="logo" alt="Mina Lashes logo" src="/img/pics/screenshot_1.png" />
             </a>
 
@@ -184,15 +184,21 @@
         </nav>
 
         <nav class="nav-col">
-            <p class="footer-heading">Abonnieren Sie uns</p>
-            <p class="copyright">Um das beste Angebot und die beste Aktion des Jahres zu erhalten</p>
-            <div class= "copyright" style="background-color:white">
-                <input type="text" placeholder="Name" name="name" required>
-                <input type="text" placeholder="Email" name="email" required>
-            </div>
-            <div class="copyright">
-                <input type="submit" value="Subscribe">
-            </div>
+            <form action="{{ route('send.mail') }}" method="POST">
+                @csrf
+                @if(Session::has('success'))
+                    <p class="alert alert-success">{{ Session::get('success') }} <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a></p>
+                @endif
+                <p class="footer-heading">Abonnieren Sie uns</p>
+                <p class="copyright">Um das beste Angebot und die beste Aktion des Jahres zu erhalten</p>
+                <div class= "copyright" style="background-color:white">
+                    <input type="text" placeholder="Name" name="name" required>
+                    <input type="text" placeholder="Email" name="email" required>
+                </div>
+                <div class="copyright">
+                    <input type="submit" value="Subscribe">
+                </div>
+            </form>
         </nav>
 
 

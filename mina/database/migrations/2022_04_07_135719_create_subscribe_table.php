@@ -18,7 +18,7 @@ class CreateSubscribeTable extends Migration
             $table->string('name');
             $table->string('email');
             $table->text('subject')->nullable();
-            $table->tinyInteger('daily');
+            $table->tinyInteger('daily')->default(0);
             $table->timestamps();
         });
     }

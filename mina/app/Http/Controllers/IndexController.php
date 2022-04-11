@@ -33,22 +33,21 @@ class IndexController extends Controller
             $config
         );
         $sendSmtpEmail = new \SendinBlue\Client\Model\SendSmtpEmail();
-        $sendSmtpEmail['subject'] = 'My {{params.subject}}';
-        $sendSmtpEmail['htmlContent'] = '<html><body><h1>This is a transactional email </h1></body></html>';
-        $sendSmtpEmail['sender'] = array('name' => 'John Doe', 'email' => env('EMAIL_MINALASHES'));
+        $sendSmtpEmail['subject'] = 'User Subscribe';
+        $sendSmtpEmail['htmlContent'] = '<html><body><h1>This is a email: ' . $request->email . ' </h1></body></html>';
+        $sendSmtpEmail['sender'] = array('name' => 'Hiep Phan', 'email' => env('EMAIL_MINALASHES'));
         $sendSmtpEmail['to'] = array(
-            array('email' => 'vungoctu.dev@gmail.com', 'name' => 'Jane Doe')
+            array('email' => $request->email, 'name' => $request->name)
         );
-        $sendSmtpEmail['replyTo'] = array('email' => 'vungoctu.dev@gmail.com', 'name' => 'John Doe');
+        $sendSmtpEmail['replyTo'] = array('email' => $request->email, 'name' => $request->name);
         $sendSmtpEmail['headers'] = array('Some-Custom-Name' => 'unique-id-1234');
         $sendSmtpEmail['params'] = array('parameter' => 'My param value', 'subject' => 'New Subject');
 
         try {
-            $result = $apiInstance->sendTransacEmail($sendSmtpEmail);
-            print_r($result);
+            $apiInstance->sendTransacEmail($sendSmtpEmail);
+            return back()->with('success', 'Subscribe successfully');
         } catch (Exception $e) {
             echo 'Exception when calling TransactionalEmailsApi->sendTransacEmail: ', $e->getMessage(), PHP_EOL;
         }
-        dd('Mail Send Successfully');
     }
 }

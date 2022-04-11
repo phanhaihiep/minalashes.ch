@@ -25,12 +25,15 @@
             <ul class="related">
                 @foreach($posts as $post)
                 <li class="related-post">
-                    <img
+                    <div style="width: 75px;">
+                        <img
                         src="{{ $post->user->avatar }}"
                         alt=""
                         width="75"
                         height="75"
-                    />
+                        />
+                    </div>
+
                     <div>
                         <a href="{{ route('blog', ['id' => 0]) }}" class="related-link">{{ $post->title }}</a>
                         <p class="related-author">{{ $post->user->name }}</p>
@@ -59,6 +62,7 @@
                     s.src = "https://minalashes-ch.disqus.com/embed.js";
                     s.setAttribute("data-timestamp", +new Date());
                     (d.head || d.body).appendChild(s);
+                    console.log(s)
                 })();
             </script>
             <noscript
