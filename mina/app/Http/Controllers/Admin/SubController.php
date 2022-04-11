@@ -16,7 +16,7 @@ class SubController extends Controller
     public function index()
     {
         $data = Subscribe::orderBy('id', 'desc')->paginate();
-        return view('sub.index', compact($data));
+        return view('sub.index', compact('data'));
     }
 
     /**

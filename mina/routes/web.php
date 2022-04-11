@@ -14,6 +14,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', 'IndexController@index')->name('index');
+Route::get('/blog', 'IndexController@blog')->name('blog');
+Route::get('/blog/{id}', 'IndexController@blogDetail')->name('blogDetail');
 Route::post('/send-mail', 'IndexController@sendMail')->name('send.mail');
 
 Auth::routes();

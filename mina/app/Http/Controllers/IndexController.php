@@ -2,14 +2,25 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Post;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Mail;
-use Carbon\Carbon;
 
 class IndexController extends Controller
 {
     public function index() {
         return view('client.index');
+    }
+
+    public function blog() {
+        $post = Post::with('user')->orderBy('id', 'desc')->first();
+        $posts = Post::with('user')->orderBy('id', 'desc')->limit(3)->get();
+        return view('client.blog', compact('post', 'posts'));
+    }
+
+    public function blogDetail(int $id) {
+        $post = Post::with('user')->where('id', $id)->first();
+        $posts = Post::with('user')->orderBy('id', 'desc')->limit(3)->get();
+        return view('client.blog', compact('post', 'posts'));
     }
 
     public function sendMail(Request $request)

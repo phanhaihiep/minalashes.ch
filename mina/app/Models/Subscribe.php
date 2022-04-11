@@ -9,6 +9,8 @@ class Subscribe extends Model
 {
     use HasFactory;
 
+    protected $table = 'subscribe';
+
     protected $fillable = [
         'name', 'email', 'subject', 'daily'
     ];

@@ -1,4 +1,10 @@
 @extends('client.layouts.master')
+@section('head')
+    <link rel="stylesheet" href="css/general.css" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/queries.css" />
+    <title>MinaLashes &mdash; Ihr Wimpernverlangerung und WarmWaxing studio in Zürich!</title>
+@endsection
 @section('content')
     <section class="section-hero">
         <div class="hero">

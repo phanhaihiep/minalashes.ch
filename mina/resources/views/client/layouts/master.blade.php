@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title>MinaLashes &mdash; Ihr Wimpernverlangerung und WarmWaxing studio in Zürich!</title>
     <meta
         name="description"
         content="Mina Lashes ist eine geprüfte Wimpernkünstlerin in Zürich, spezialisiert auf Wimpernverlängerung Klassic Natural und Hot Waxing."
@@ -20,9 +19,6 @@
         href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700&display=swap"
         rel="stylesheet"
     />
-    <link rel="stylesheet" href="css/general.css" />
-    <link rel="stylesheet" href="css/style.css" />
-    <link rel="stylesheet" href="css/queries.css" />
 
     <!-- Global Site Tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-R8PF4Q1DVM"></script>
@@ -65,7 +61,7 @@
     <link rel="icon" type="image/png" href="./img/favicon.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
-
+    @yield('head')
 </head>
 <body>
 <header class="header">
@@ -73,7 +69,7 @@
         <img
             class="logo"
             alt="Mina Lashes logo"
-            src="img/pics/Screenshot_1.png"
+            src="/img/pics/Screenshot_1.png"
         />
     </a>
 
@@ -102,7 +98,7 @@
             <li><a class="main-nav-link" href="#pricing">Preis</a></li>
             <li><a class="main-nav-link" href="#contact">Kontakt</a></li>
             <li>
-                <a class="main-nav-link pointer" onclick="window.open('content/blog/5-Regeln,-die-Sie-tun,-die-Ihre-Wimpernverlängerung-ruinieren.html');" href="">Blog</a>
+                <a class="main-nav-link pointer" onclick="window.open('{{ route('blog') }}');" href="">Blog</a>
             </li>
 
 
@@ -128,7 +124,7 @@
     <div class="container grid grid--footer">
         <div class="logo-col">
             <a href="#" class="footer-logo">
-                <img class="logo" alt="Mina Lashes logo" src="img/pics/screenshot_1.png" />
+                <img class="logo" alt="Mina Lashes logo" src="/img/pics/screenshot_1.png" />
             </a>
 
             <ul class="social-links">
