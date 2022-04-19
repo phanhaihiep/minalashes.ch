@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Comment;
 use App\Models\Post;
 use Illuminate\Http\Request;
 
@@ -14,13 +15,22 @@ class IndexController extends Controller
     public function blog() {
         $post = Post::with('user')->orderBy('id', 'desc')->first();
         $posts = Post::with('user')->orderBy('id', 'desc')->limit(3)->get();
-        return view('client.blog', compact('post', 'posts'));
+        $comments = Comment::with('user')->orderBy('id', 'desc')->where('post_id', $post->id)->get();
+        return view('client.blog', compact('post', 'posts', 'comments'));
     }
 
     public function blogDetail(int $id) {
         $post = Post::with('user')->where('id', $id)->first();
         $posts = Post::with('user')->orderBy('id', 'desc')->limit(3)->get();
-        return view('client.blog', compact('post', 'posts'));
+        $comments = Comment::with('user')->orderBy('id', 'desc')->where('post_id', $id)->get();
+        return view('client.blog', compact('post', 'posts', 'comments'));
+    }
+
+    public function cmt(Request $request) {
+        $cmt = new Comment();
+        $cmt->fill($request->all());
+        $cmt->save();
+        return response()->json(['message' => 'Comment successfully', 'status' => 200]);
     }
 
     public function sendMail(Request $request)
