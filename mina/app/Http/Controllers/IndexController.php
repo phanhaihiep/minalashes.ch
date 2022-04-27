@@ -15,7 +15,10 @@ class IndexController extends Controller
     public function blog() {
         $post = Post::with('user')->orderBy('id', 'desc')->first();
         $posts = Post::with('user')->orderBy('id', 'desc')->limit(3)->get();
-        $comments = Comment::with('user')->orderBy('id', 'desc')->where('post_id', $post->id)->get();
+        $comments = [];
+        if (isset($post)) {
+            $comments = Comment::with('user')->orderBy('id', 'desc')->where('post_id', $post->id)->get();
+        }
         return view('client.blog', compact('post', 'posts', 'comments'));
     }
 
