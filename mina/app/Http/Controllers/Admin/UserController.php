@@ -57,7 +57,7 @@ class UserController extends Controller
         $user->password = bcrypt($request->password);
         $user->avatar = '/upload/avatar/'.$gethinhthe;
         if ($user->save()) {
-            return redirect('users.index')->with('success','User created successfully.');
+            return redirect()->route('admin.users.index')->with('success','User created successfully.');
         } else {
             return back()->with('success','User created fail.');
         }
