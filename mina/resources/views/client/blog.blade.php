@@ -8,7 +8,8 @@
     <title>5 Regeln, die Sie tun, die Ihre Wimpernverlängerung ruinieren</title>
 @endsection
 @section('content')
-    <div class="container">
+    @if (isset($post))
+    <div class="container" >
         <header class="main-header clearfix">
             <h1>{{ $post->title }}</h1>
         </header>
@@ -73,4 +74,5 @@
             >
         </section>
     </div>
+    @endif
 @endsection
