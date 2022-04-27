@@ -9,7 +9,7 @@
 @endsection
 @section('content')
     @if (isset($post))
-    <div class="container" >
+        <div class="container" >
         <header class="main-header clearfix">
             <h1>{{ $post->title }}</h1>
         </header>

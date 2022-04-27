@@ -12,6 +12,11 @@ class Comment extends Model
     protected $table = 'comment';
 
     protected $fillable = [
-      'content', 'parent_id', 'user_id '
+      'content', 'parent_id', 'user_id', 'post_id'
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
 }
