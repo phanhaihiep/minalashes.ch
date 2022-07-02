@@ -42,6 +42,7 @@ class HomeController extends Controller
         if(Auth::guard('admin')->attempt(['email' => $request->email, 'password' => $request->password], request()->filled('remember'))) {
             return redirect()->route('admin.home');
         }
+        return view('auth.login');
     }
 
     /**

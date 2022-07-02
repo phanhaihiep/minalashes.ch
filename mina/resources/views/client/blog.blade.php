@@ -4,7 +4,7 @@
     <link href="/css/general.css" rel="stylesheet" />
     <link href="/css/queries.css" rel="stylesheet" />
     <link href="/css/style.css" rel="stylesheet" />
-    <script defer src="js/script.js"></script>
+    <script  src="js/script.js"></script>
     <title>5 Regeln, die Sie tun, die Ihre Wimpernverlängerung ruinieren</title>
 @endsection
 @section('content')
@@ -36,7 +36,7 @@
                     </div>
 
                     <div>
-                        <a href="{{ route('blog', ['id' => 0]) }}" class="related-link">{{ $post->title }}</a>
+                        <a href="{{ route('blogDetail', ['id' => $post->id]) }}" class="related-link">{{ $post->title }}</a>
                         <p class="related-author">{{ $post->user->name }}</p>
                     </div>
                 </li>

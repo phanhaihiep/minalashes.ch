@@ -478,14 +478,15 @@
                             Schreiben Sie uns hier oder rufen Sie uns an: 0775070699
                         </p>
 
-                        <form class="cta-form" name="sign-up" netlify>
+                        <form class="cta-form" name="sign-up" netlify action="{{ route('send.mess') }}" method="POST">
+                        @csrf
                             <div>
                                 <label for="full-name">Name und Vorname:</label>
                                 <input
                                     id="full-name"
                                     type="text"
                                     placeholder="Jessica Aniston"
-                                    name="full-name"
+                                    name="fullname"
                                     required
                                 />
                             </div>
@@ -503,11 +504,11 @@
 
                             <div>
                                 <label for="select-where">Was ist Ihre Nachricht?</label>
-                                <textarea width="400px" class="message" name="select-where" required>
+                                <textarea width="400px" class="message" name="message" required>
                   </textarea>
                             </div>
 
-                            <button class="btn btn--form">Schicken</button>
+                            <button type="submit" class="btn btn--form">Schicken</button>
 
                             <!-- <input type="checkbox" />
                             <input type="number" /> -->

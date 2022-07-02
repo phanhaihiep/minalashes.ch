@@ -74,6 +74,11 @@
     @yield('head')
 </head>
 <body>
+<div>
+    @if(Session::has('success'))
+        <div style="padding: 12px; font-size: 18px;" class="alert alert-success">{{ Session::get('success') }} <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a></div>
+    @endif
+</div>
 <header class="header">
     <a href="{{ route('index') }}">
         <img
@@ -196,9 +201,6 @@
         <nav class="nav-col">
             <form action="{{ route('send.mail') }}" method="POST">
                 @csrf
-                @if(Session::has('success'))
-                    <p class="alert alert-success">{{ Session::get('success') }} <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a></p>
-                @endif
                 <p class="footer-heading">Abonnieren Sie uns</p>
                 <p class="copyright">Um das beste Angebot und die beste Aktion des Jahres zu erhalten</p>
                 <div class= "copyright" style="background-color:white">

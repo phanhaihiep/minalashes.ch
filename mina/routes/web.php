@@ -18,6 +18,7 @@ Route::get('/blog', 'IndexController@blog')->name('blog');
 Route::get('/blog/{id}', 'IndexController@blogDetail')->name('blogDetail');
 Route::post('/cmt', 'IndexController@cmt')->name('cmt');
 Route::post('/send-mail', 'IndexController@sendMail')->name('send.mail');
+Route::post('/send-mess', 'IndexController@sendMess')->name('send.mess');
 
 Route::get('/admin', 'Admin\HomeController@index')->name('admin.home');
 Route::post('/admin/login', 'Admin\HomeController@login')->name('admin.login');
