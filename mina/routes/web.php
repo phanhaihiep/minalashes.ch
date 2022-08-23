@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\PostController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -46,5 +47,6 @@ Route::prefix('/admin')->name('admin.')->middleware('auth:admin')->namespace('Ad
         'sub' => SubController::class,
         'post' => PostController::class,
     ]);
+    Route::resource('/posts', PostController::class);
 });
 
